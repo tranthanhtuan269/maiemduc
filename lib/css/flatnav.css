@@ -1,0 +1,75 @@
+
+.nav {
+background: #ffffff;
+font-size: 12px; 
+}
+
+.nav li {
+	float: left;
+	list-style-type: none;
+	position: relative;
+}
+
+.nav li a {
+	font-size: 12px; 
+	color: black;
+	display: block;
+
+	text-decoration: none;
+	text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.nav li a:hover {
+	background-color: #faf9a8;
+}
+
+.subnav {
+	visibility: hidden;
+	position: absolute;
+	top: 110%;
+	right: 0;
+	width: 200px;
+	height: auto;
+	opacity: 0;
+	transition: all 0.1s;
+	background: #ffffff;
+	text-align: right;
+}
+.subnav li {
+	float: none;
+}
+.subnav li a {
+	border-bottom: 1px solid #eeedfb;
+}
+#td_setting:hover .subnav {
+	visibility: visible;
+	top: 2;
+	left:-166;
+	z-index:999;
+	opacity: 1;
+}
+
+.subuser {
+	visibility: hidden;
+	position: absolute;
+	top: 110%;
+	right: 0;
+	width: 200px;
+	height: auto;
+	opacity: 0;
+	transition: all 0.1s;
+	background: #ffffff;
+	text-align: right;
+}
+.subuser li {
+	float: none;
+}
+.subuser li a {
+	border-bottom: 1px solid #eeedfb;
+}
+#td_username:hover .subuser {
+	visibility: visible;
+	top: 2;
+	left:-151;
+	z-index:999;
+	opacity: 1;
+}

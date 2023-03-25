@@ -1,0 +1,31 @@
+<?php
+header('Content-type: text/html; charset=utf-8'); require_once('./global.php'); 
+$ind = rand(1,4);
+
+echo '<!--';
+require("src/mysql_function.php");
+$mysqlIns=new mysql(); $mysqlIns->link=$db;
+$rowdata=$mysqlIns->get_birthday();
+
+$strbirth = "";
+for($i=0;$i<count($rowdata);$i++)
+{
+	if ($i < count($rowdata) - 1) {
+		$strbirth = $strbirth.$rowdata[$i]["user_fullname"].", ";
+	} else {
+		$strbirth = $strbirth.$rowdata[$i]["user_fullname"];
+	}
+}
+echo "-->";
+?>
+<body background="images/happybirthday/bghb1.jpg" >
+<table width="100%" cellpadding="5" cellspacing="5">
+<tr><td>
+<span align="center">
+<h2>HÔM NAY LÀ <font color="red"><?=$rowdata[0]["user_birth_f"] ?></font><br> CHÚC MỪNG SINH NHẬT <font color="red"><?=$strbirth?></font></h2><br>
+<img src="images/happybirthday/hb<?=$ind?>.jpg" height=400>
+
+</span>
+</td></tr>
+</table>
+</body><?php mysql_close($db); ?>

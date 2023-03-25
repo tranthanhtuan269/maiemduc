@@ -1,0 +1,65 @@
+<!--
+<?php 
+header('Content-type: text/html; charset=utf-8'); 
+require_once('./global.php'); 
+require("src/mysql_function.php");
+$mysqlIns=new mysql();  $mysqlIns->link=$db;
+
+$id =$_REQUEST['id'];
+$ref =$_REQUEST['ref'];
+
+$index_chuaxuly=$mysqlIns->get_payment_his($id,$ref);
+?>-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link type="text/css" rel="stylesheet" href="lib/css/niceforms-default.css" />
+
+<style>
+	body {
+	font-size:	7px;
+	font-family: "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+	
+	}
+</style>
+</head>
+<body bgcolor="#eeedfb">
+<table bgcolor="#eeedfb" width="800" cellspacing="10" cellpadding="10" style="border: 1px solid #c2c2c2; border-collapse:none;" class="tbl_shadow">
+<tr bgcolor="#eeedfb"><td>
+<b><font size=2>Lịch sử thanh to&#225;n: </font><font color="red" size=2><?php echo isset($index_chuaxuly[0]["trn_name"])?$index_chuaxuly[0]["trn_name"]:""; ?></font></b><br><br>
+<table width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #c2c2c2; border-collapse:none;" bgcolor="#eeedfb">
+
+<thead>
+<tr bgcolor="#eeedfb">
+	<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" align="left" nowrap="nowrap"><b><font size=2>Ngày Update</font></b></td>
+	<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" align="left" nowrap="nowrap"><b><font size=2>Giá trị Tiền mặt</font></b></td>
+	<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" align="left" nowrap="nowrap"><b><font size=2>Giá trị Chuyển khoản</font></b></td>
+	<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" align="left" nowrap="nowrap"><b><font size=2>Người Update</font></b></td>
+	<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" align="left" nowrap="nowrap"><b><font size=2>Trạng thái</font></b></td>
+</tr>
+</thead>
+<tbody>
+<?php
+for($i=0;$i<count($index_chuaxuly);$i++)
+{
+	echo '<tr>';
+	if ($index_chuaxuly[$i]['payment_status'] == "0") $status_name = "Thay đổi";
+	if ($index_chuaxuly[$i]['payment_status'] == "1") $status_name = "Duyệt";
+	echo '<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" style=\"padding-left:6px;\" width=\"10\" valign=\"top\"><font size=2>'.$index_chuaxuly[$i]['trn_auth_date'].'</font></td>';
+	echo '<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" style=\"padding-left:6px;\" width=\"10\" valign=\"top\"><font size=2>'.number_format($index_chuaxuly[$i]['trn_payment_type_tm'], 0, '.', ',').'</font></td>';
+	echo '<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" style=\"padding-left:6px;\" width=\"10\" valign=\"top\"><font size=2>'.number_format($index_chuaxuly[$i]['trn_payment_type_ck'], 0, '.', ',').'</font></td>';
+	echo '<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" style=\"padding-left:6px;\" width=\"10\" valign=\"top\"><font size=2>'.$index_chuaxuly[$i]['trn_auth_by'].'</font></td>';
+	echo '<td style="padding-left:6px; border-left: 1px solid #c2c2c2; border-collapse:none;" style=\"padding-left:6px;\" width=\"10\" valign=\"top\"><font size=2>'.$status_name.'</font></td>';
+	echo '</tr>';
+}
+?>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>
+<script type="text/javascript"> </script>
+<?php mysql_close($db); ?>

@@ -1,0 +1,880 @@
+
+
+<?php
+
+
+if (!function_exists("GetSQLValueString")) {
+
+
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+
+
+{
+
+
+  if (PHP_VERSION < 6) {
+
+
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+
+
+  }
+
+
+
+
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+
+
+
+
+  switch ($theType) {
+
+
+    case "text":
+
+
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+
+
+      break;    
+
+
+    case "long":
+
+
+    case "int":
+
+
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+
+
+      break;
+
+
+    case "double":
+
+
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+
+
+      break;
+
+
+    case "date":
+
+
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+
+
+      break;
+
+
+    case "defined":
+
+
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+
+
+      break;
+
+
+  }
+
+
+  return $theValue;
+
+
+}
+
+
+}
+
+
+
+
+
+if (isset($_POST['hid_report_month'])) {
+
+
+	$_SESSION['report_month'] = $_POST['hid_report_month'];
+
+
+} else {
+
+
+	//
+
+
+}
+
+
+
+
+
+if (!isset($_SESSION['report_month'])) {
+
+
+	$date = trim(date('Ym')).'';
+
+
+	$_SESSION['report_month'] = $date;
+
+
+}
+
+
+
+
+
+$width = 98;
+
+
+?>
+
+
+<script src="lib/js/Highcharts-4.0.4/js/highcharts.js"></script>
+
+
+<script src="lib/js/Highcharts-4.0.4/js/highcharts-3d.js"></script>
+
+
+<script src="lib/js/Highcharts-4.0.4/js/modules/exporting.js"></script>
+
+
+
+
+
+
+
+
+<style type="text/css">
+
+
+${demo.css}
+
+
+</style>
+
+
+<script type="text/javascript">
+
+
+       $(function() {
+
+
+               $("#report_from").datepicker({ dateFormat: "dd-mm-yy" });
+
+
+	       $("#report_to").datepicker({ dateFormat: "dd-mm-yy" });
+
+
+       });
+
+
+
+
+
+   </script>
+
+
+<table width="<?php echo $width; ?>%" cellspacing="0" cellpadding="0" >
+
+
+<thead>
+
+
+<tr height="4">
+
+
+	
+
+
+		<td width="10%" colspan="4" align="center" height="2"></td>
+
+
+		
+
+
+	</tr>
+
+
+</thead>
+
+
+</table>
+
+
+
+
+
+<table width="<?php echo $width; ?>%" cellspacing="0" cellpadding="0">
+
+
+<thead>
+
+
+
+
+
+<tr>
+
+
+		<td align="center" valign="middle" nowrap="nowrap"><img src="images/typeicon2.png" height=25></td>
+
+
+		<td align="center" valign="middle" nowrap="nowrap"><font size="2"><b>&nbsp;<a onclick="makeBlockUI();" href="?mode=ranklist">Sản phẩm</a>&nbsp;&nbsp;&nbsp;</b></font> </td>
+
+
+		
+
+
+		<td align="center" valign="middle" nowrap="nowrap"><img src="images/usericon2.png" height=25></td>
+
+
+		<td align="center" valign="middle" nowrap="nowrap"><font size="2"><b>&nbsp;<a onclick="makeBlockUI();" href="?mode=rankuser">Nhân viên</a>&nbsp;&nbsp;&nbsp;</b></font> </td>
+
+
+		
+
+
+		
+
+
+		<td align="center" valign="middle" nowrap="nowrap"><img src="images/user.png" height=20></td>
+
+
+		<td align="center" valign="middle" nowrap="nowrap"><font size="2"><b>&nbsp;<a onclick="makeBlockUI();" href="?mode=rankcustf">Khách hàng</a>&nbsp;&nbsp;&nbsp;</b></font> </td>
+
+
+		
+
+
+		<!--<td align="center" valign="middle" nowrap="nowrap"><img src="images/customersicon.png" height=20></td>
+
+
+		<td align="center" valign="middle" nowrap="nowrap"><font size="2"><b>&nbsp;<a onclick="makeBlockUI();" href="?mode=custlist">DS Khách hàng</a>&nbsp;&nbsp;&nbsp;</b></font> </td>
+		-->
+
+		
+
+		<td align="center" valign="middle" nowrap="nowrap"><img src="images/92586_excel_512x512.png" height=20></td>
+
+
+
+		<td align="center" valign="middle" nowrap="nowrap"><font size="2"><b>&nbsp;<a onclick="makeBlockUI();" href="?mode=custlist">Export &#273;&#417;n h&#224;ng</a>&nbsp;&nbsp;&nbsp;</b></font> </td>
+
+		
+
+
+		<td align="center" valign="middle" nowrap="nowrap" width="80%"></td>
+
+
+		<td align="center" valign="middle" nowrap="nowrap" width="10%"><font size="2">
+
+
+		<form id="filterDate" name="filterDate" method="POST">
+
+
+		<b>Từ </b></font>
+
+
+		<?php
+
+
+		$date = date('Y-m-d');
+
+
+		$timestamp = strtotime(date("Y-m-d", strtotime($date)) . " -1 day");
+
+
+		
+
+
+		
+
+
+		if(isset($_POST['report_from'])) {
+
+
+			$report_from = $_POST['report_from'];
+
+
+		} else {
+
+
+			$report_from = date('01-m-Y');
+
+
+		}
+
+
+		if(isset($_POST['report_to'])) {
+
+
+			$report_to = $_POST['report_to'];
+
+
+		} else {
+
+
+			$report_to = date('d-m-Y');
+
+
+		}
+
+
+		
+
+
+		?>
+
+
+		
+
+		
+
+
+
+<?php
+
+
+
+if (isset($_POST["report_from"])) {
+
+
+
+	$report_from = $_POST["report_from"];
+
+}
+
+
+
+if (isset($_POST["report_to"])) {
+
+
+
+	$report_to = $_POST["report_to"];
+
+}
+
+
+
+/*
+
+$report_from_arr = explode("-",$report_from);
+
+
+
+if (strlen($report_from_arr[2]) == 4) {
+
+
+
+	$report_from = "'".$report_from_arr[2].'-'.$report_from_arr[1].'-'.$report_from_arr[0]."'";
+
+
+
+}
+
+
+
+
+
+
+
+$report_to_arr = explode("-",$report_to);
+
+
+
+if (strlen($report_to_arr[2]) == 4) {
+
+
+
+	$report_to = "'".$report_to_arr[2].'-'.$report_to_arr[1].'-'.$report_to_arr[0]."'";
+
+
+
+}*/
+
+
+
+
+
+if (isset($_POST['submittp']) && $_POST['submittp'] == 'all') {
+
+
+
+	$report_from = 'null';
+
+
+
+	$report_to = 'null';
+
+
+
+}
+
+
+
+
+
+
+
+//echo $report_from;  
+
+
+
+echo '<!--';
+
+
+
+$view_listCust_all=$mysqlIns->view_listCust_all($report_from,$report_to);
+
+
+
+echo '-->';
+
+
+
+?>
+
+
+
+		<input maxlength="10" onkeypress="return onlydate(event);" name="report_from" type="text" id="report_from" size="8" style="border:1px solid #DADADA;" value="<?php echo $report_from!="null"?$report_from:"";?>" />
+
+
+		<b>Đến </b>
+
+
+		<input maxlength="10" onkeypress="return onlydate(event);" name="report_to" type="text" id="report_to" size="8" style="border:1px solid #DADADA;" value="<?php echo $report_to!="null"?$report_to:""; ?>" />
+
+
+		
+
+
+		<input type="submit" name="btnreport" id="btnreport" value="Lọc" onclick="$('#submittp').val(''); makeBlockUI();"/>
+
+
+		<input type="submit" name="btnreportAll" id="btnreportAll" value="Tất cả" onclick="$('#submittp').val('all'); makeBlockUI();"/>
+
+
+		<input type="hidden" id="submittp" name="submittp" value="<?php echo $_POST['submittp']; ?>">
+
+
+		</form>
+
+
+		
+
+
+		</td>
+
+
+		<td width="1%" style="padding-left:5px;" colspan="4" align="center" height="4"><a href="javascript:" onclick="callajax_export_trans('','ALL');"><img src="images/export.gif" height=25></a></td>
+
+
+	</tr>
+
+
+	<tr  height="4">
+
+
+	
+
+
+		<td width="10%" colspan="4" align="center" height="4"></td>
+
+
+		
+
+
+	</tr>
+
+
+</thead>
+
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table width="<?php echo $width; ?>%" cellspacing="0" cellpadding="0" style="border: 1px solid #c2c2c2; border-collapse:none;" class="tbl_shadow">
+
+
+<thead>
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeedfb" height="22">
+
+
+	<td width="1%" align="left" style="padding-left:6px;padding-right:6px;"><b>STT</b></td>
+
+
+	<!--<td width="10%" align="left" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" nowrap="nowrap"><b>Ngày đặt hàng</b></td>
+
+
+	<td width="10%" align="left" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" nowrap="nowrap"><b>Ngày Giao hàng</b></td>
+	-->
+
+	<td width="10%" align="left" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;"><b>Tên KH</b></td>
+	<td width="10%" align="left" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;"><b>Export</b></td>
+
+	<td width="10%" align="left" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;"><b>Giới tính</b></td>
+
+
+	<td width="20%" align="left" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" nowrap="nowrap"><b>Tên Cty</b></td>
+
+
+	<td width="10%" align="left" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" nowrap="nowrap"><b>Email</b></td>
+
+
+	<td width="5%" align="right" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" nowrap="nowrap"><b>Số ĐT</b></td>
+
+
+	<td width="20%" align="left" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" nowrap="nowrap"><b>Địa chỉ</b></td>
+
+
+	<td width="1%" align="right" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" nowrap="nowrap"><b>Số lần đặt</b></td>
+
+
+	<td width="1%" align="right" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" nowrap="nowrap"><b>Doanh số đã đặt</b></td>
+
+
+
+
+
+
+</tr>
+
+
+</thead>
+
+
+<tbody id="body_other">
+
+
+<?php
+
+
+for($i=0;$i<count($view_listCust_all);$i++)
+
+
+{
+
+
+$color =($i%2==0) ? "#F8F8F5" : "#FFFFFF";
+
+
+$stt = $i+ 1;
+
+
+
+
+
+$sex = '';
+
+
+if ($view_listCust_all[$i]["cust_sex"] == 'F') $sex = 'Nữ';
+
+
+if ($view_listCust_all[$i]["cust_sex"] == 'M') $sex = 'Nam';
+
+
+
+
+
+echo '
+
+
+<tr height="1" bgcolor="gray">
+
+
+		<td width="100%" colspan="11" align="left" valign="middle">
+
+
+		</td>
+
+
+</tr>
+
+
+<tr height="22" bgcolor="'.$color.'">
+
+
+		<td nowrap="nowrap" style="padding-left:6px;padding-right:6px;">'.$stt.'</td>
+
+
+		<!--<td nowrap="nowrap" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;">'.$view_listCust_all[$i]["start_date_list"].'</td>
+
+
+		<td nowrap="nowrap" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;">'.$view_listCust_all[$i]["end_date_list"].'</td>
+		-->
+
+		<td nowrap="nowrap" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;"><img src="images/user.png" height="14"><b><a onclick="if (event.which != 2) makeBlockUI();" href="index.php?search=user&id='.$view_listCust_all[$i]["cust_phone"].'"class="login-window" id="trn_name_'.$view_listCust_all[$i][0].'" >'.$view_listCust_all[$i]["cust_name"].'</a></b> </td>
+		<td style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" align="left" ><a href="javascript:" onclick="callajax_export_trans(\''.str_replace(" ","",$view_listCust_all[$i]["cust_phone"]).'\',\''.strtoupper(str_replace(' ','_',utf8convert(trim($view_listCust_all[$i]["cust_name"])))).'\');"><img src="images/export.gif" height=20></a></td>
+
+		<td style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" align="left" >'.$sex.'<!--tencongtrinh--></a></td>
+
+
+		<td style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" align="left" >'.$view_listCust_all[$i]["cust_company"].'<!--tencongtrinh--></a></td>
+
+
+		<td style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;">'.$view_listCust_all[$i]["cust_email"].'</td>
+
+
+		<td nowrap="nowrap" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" align="right">'.$view_listCust_all[$i]["cust_phone"].'</td>
+
+
+		<td style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" align="left">'.$view_listCust_all[$i]["cust_address"].'</td>
+
+
+		<td nowrap="nowrap" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;">'.number_format($view_listCust_all[$i]["order_count"], 0, '.', ',').'</td>
+
+
+		<td nowrap="nowrap" style="padding-left:6px;padding-right:6px;border-left: 1px solid #c2c2c2; border-collapse:none;" align="right">'.number_format($view_listCust_all[$i]["total_amount_complete"], 0, '.', ',').'</td>
+
+
+
+
+
+		</tr>';
+
+
+
+
+
+}
+
+
+
+
+
+echo '<tr><td colspan=15 width="100%"><div id="content" height="1"></div></td></tr>'; 
+
+
+?>
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+<table width="<?php echo $width; ?>%" cellspacing="0" cellpadding="0" >
+
+
+<thead>
+
+
+<tr height="20">
+
+
+	
+
+
+		<td width="10%" colspan="4" align="center" height="2"></td>
+
+
+		
+
+
+	</tr>
+
+
+</thead>
+
+
+</table>
+
+
+
+
+
+<form name="hid_post" id="hid_post" method="POST">
+
+
+	<input type="hidden" id="hid_report_month" name="hid_report_month" value="">
+
+
+</form>
+
+
+
+
+
+<script type="text/javascript">
+
+
+	function changeMonth() {
+
+
+		makeBlockUI();
+
+
+		$("#hid_report_month").val($("#report_month").val());
+
+
+		document.getElementById("hid_post").submit();
+
+
+	}
+
+
+	
+
+
+	
+
+
+	function callajax_export() {
+
+
+		var param = "export_excel.php?report_from=" + $('#report_from').val() + "&report_to=" + $('#report_to').val() + '&submittp=' + $('#submittp').val();
+
+
+		//alert(param);
+
+
+		/*$.ajax({
+
+
+				url : 'export_excel.php',
+
+
+				data :  param,
+
+
+				type : 'get',
+
+
+				dataType : '',
+
+
+				success : function (result)
+
+
+				{
+
+
+					
+
+
+						// Gán kết quả vào div#content
+
+
+						//alert(result);
+
+
+					
+
+
+				}
+
+
+			});*/
+
+
+			window.open(param);
+
+
+	}
+
+	
+
+	function callajax_export_trans(phone,cust_name) {
+
+
+
+		var param = "export_excel_trans.php?phone="+phone+"&cust_name="+cust_name+"&report_from=" + $('#report_from').val() + "&report_to=" + $('#report_to').val();
+
+
+
+		//alert(param);
+
+
+
+		/*$.ajax({
+
+
+
+				url : 'export_excel.php',
+
+
+
+				data :  param,
+
+
+
+				type : 'get',
+
+
+
+				dataType : '',
+
+
+
+				success : function (result)
+
+
+
+				{
+
+
+
+					
+
+
+
+						// Gán kết quả vào div#content
+
+
+
+						//alert(result);
+
+
+
+					
+
+
+
+				}
+
+
+
+			});*/
+
+
+
+			window.open(param);
+
+
+
+	}
+
+
+</script>
+
+

@@ -1,0 +1,477 @@
+
+	
+<script language="Javascript1.2"><!-- // load htmlarea
+				_editor_url = "HTMLEditor/";                     // URL to htmlarea files
+				var win_ie_ver = parseFloat(navigator.appVersion.split("MSIE")[1]);
+				if (navigator.userAgent.indexOf('Mac')        >= 0) { win_ie_ver = 0; }
+				if (navigator.userAgent.indexOf('Windows CE') >= 0) { win_ie_ver = 0; }
+				if (navigator.userAgent.indexOf('Opera')      >= 0) { win_ie_ver = 0; }
+				if (win_ie_ver >= 5.5) {
+				document.write('<scr' + 'ipt src="' +_editor_url+ 'editor.js"');
+				document.write(' language="Javascript1.2"></scr' + 'ipt>');  
+				} else { document.write('<scr'+'ipt>function editor_generate() { return false; }</scr'+'ipt>'); }
+				// --></script>
+
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Welcome to Administrator system</title>
+
+	
+	
+	<script type="text/javascript" src="Js/Tools/vietuni.js" ></SCRIPT>
+	<script type="text/javascript" src="js/Tools/JSCookMenu_mini.js" ></script>
+	<script type="text/javascript" src="js/Tools/theme.js"></script>
+	<script type="text/javascript" src="js/Tools/functions.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="css/template_css.css" >
+	<link type="text/css" rel="stylesheet" href="css/theme.css" >
+	
+	
+	
+
+<link href="css/style_load_module.css" rel="stylesheet" type="text/css" />
+<link href="css/niceforms-default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="css/style_index.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/style_menudrop.css" />
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="css/dialog.css" />
+	
+	
+	
+	<!--Start Popup-->
+	<script type="text/javascript" src="Js/jquery-ui/jquery-ui.js"></script>
+	<link type="text/css" rel="stylesheet" href="Js/jquery-ui/jquery-ui.css" />
+
+	
+	<link rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css"/>
+<script type="text/javascript" src="datetimepicker/jquery.datetimepicker.js"></script>
+
+	<!--End Popup-->
+    <style>
+        input:focus { background: #FFE4C4; color: black; }
+        select:focus { background: #FFE4C4; color: black; }
+        input.radio:focus { background: #FFE4C4; color: black; }
+        input.textarea:focus { background: #FFE4C4; color: black; }
+        
+        input {color: black;}
+        select {color: black;}
+        textarea {color: black;}
+        .is-disabled {
+            background-color: #F8F8FF;
+            color: black !important;   
+        }
+		
+		.tbl_shadow {
+ -moz-box-shadow: 3px 3px 5px #b9b9b9;
+  -webkit-box-shadow: 3px 3px 5px #b9b9b9;       
+  box-shadow: 3px 3px 5px #b9b9b9;
+   
+}
+
+.tbl_shadow1 {
+
+  -webkit-box-shadow: 3px 0px 0px 0px #d41a1a;       
+ 
+   
+}
+
+
+/*custom font*/
+@import url(http://fonts.googleapis.com/css?family=Merriweather+Sans);
+
+* {margin: 0; padding: 0;}
+
+html, body {min-height: 100%;}
+
+body {
+font-family: "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+font-size:	12px;
+}
+
+.breadcrumb {
+	/*centering*/
+	display: inline-block;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.35);
+	overflow: hidden;
+	border-radius: 5px;
+	/*Lets add the numbers for each link using CSS counters. flag is the name of the counter. to be defined using counter-reset in the parent element of the links*/
+	counter-reset: flag; 
+}
+
+.breadcrumb a {
+	text-decoration: none;
+	outline: none;
+	display: block;
+	float: left;
+	
+	line-height: 36px;
+	color: white;
+	/*need more margin on the left of links to accomodate the numbers*/
+	padding: 0 10px 0 60px;
+	background: #666;
+	background: linear-gradient(#666, #333);
+	position: relative;
+}
+/*since the first link does not have a triangle before it we can reduce the left padding to make it look consistent with other links*/
+.breadcrumb a:first-child {
+	padding-left: 46px;
+	border-radius: 5px 0 0 5px; /*to match with the parent's radius*/
+}
+.breadcrumb a:first-child:before {
+	left: 14px;
+}
+.breadcrumb a:last-child {
+	border-radius: 0 5px 5px 0; /*this was to prevent glitches on hover*/
+	padding-right: 20px;
+}
+
+/*hover/active styles*/
+.breadcrumb a.active, .breadcrumb a:hover{
+	background: #333;
+	background: linear-gradient(#333, #000);
+}
+.breadcrumb a.active:after, .breadcrumb a:hover:after {
+	background: #333;
+	background: linear-gradient(135deg, #333, #000);
+}
+
+/*adding the arrows for the breadcrumbs using rotated pseudo elements*/
+.breadcrumb a:after {
+	content: '';
+	position: absolute;
+	top: 0; 
+	right: -18px; /*half of square's length*/
+	/*same dimension as the line-height of .breadcrumb a */
+	width: 36px; 
+	height: 36px;
+	/*as you see the rotated square takes a larger height. which makes it tough to position it properly. So we are going to scale it down so that the diagonals become equal to the line-height of the link. We scale it to 70.7% because if square's: 
+	length = 1; diagonal = (1^2 + 1^2)^0.5 = 1.414 (pythagoras theorem)
+	if diagonal required = 1; length = 1/1.414 = 0.707*/
+	transform: scale(0.707) rotate(45deg);
+	/*we need to prevent the arrows from getting buried under the next link*/
+	z-index: 1;
+	/*background same as links but the gradient will be rotated to compensate with the transform applied*/
+	background: #666;
+	background: linear-gradient(135deg, #666, #333);
+	/*stylish arrow design using box shadow*/
+	box-shadow: 
+		2px -2px 0 0px rgba(0, 0, 0, 0.1), 
+		3px -3px 0 0px rgba(255, 255, 255, 0.1);
+	/*
+		5px - for rounded arrows and 
+		50px - to prevent hover glitches on the border created using shadows*/
+	border-radius: 0 5px 0 50px;
+}
+/*we dont need an arrow after the last link*/
+.breadcrumb a:last-child:after {
+	content: none;
+}
+/*we will use the :before element to show numbers*/
+.breadcrumb a:before {
+	content: counter(flag);
+	counter-increment: flag;
+	/*some styles now*/
+	border-radius: 100%;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	line-width: 20px;
+	margin: 8px 0;
+	position: absolute;
+	top: 0;
+	left: 30px;
+	background: #444;
+	background: linear-gradient(#444, #222);
+	font-weight: bold;
+}
+
+
+.flat a, .flat a:after {
+	background: #faf9a8;
+	color: black;
+	transition: all 0.5s;
+}
+.flat a:before {
+	background: white;
+	box-shadow: 0 0 0 1px #ccc;
+}
+.flat a:hover, .flat a.active, 
+.flat a:hover:after, .flat a.active:after{
+	background: #0177f9;
+}
+
+
+
+
+
+
+hr {
+border: solid #dddddd;
+border-width: 1px 0 0;
+clear: both;
+margin: 0.71111rem 0 1.05556rem;
+height: 0;
+}
+
+
+
+input#email{
+background-image:url(images/black_mail.png);
+background-repeat:no-repeat;
+background-position:6px;
+border:1px solid #DADADA;
+
+padding-left:25px;
+width:250px;
+height:25px;
+}
+
+input#phone{
+background-image:url(images/black_phone1.png);
+background-repeat:no-repeat;
+background-position:6px;
+border:1px solid #DADADA;
+
+padding-left:25px;
+width:150px;
+height:25px;
+}
+
+inputother{
+border:1px solid #DADADA;
+margin-top:40px;
+}
+
+
+div#container {
+  display: table;
+  
+  /* I want the whole search box
+     to be exactly this wide. */
+  width: 100%;
+  
+  margin: 0px auto 0;
+}
+div#container div.cell {
+  display: table-cell;
+}
+div#container div.cell:last-child {
+  /* Makes sure this cell is only wide enough
+     for the button label. */
+  width: 1px;
+}
+
+input[type=search], div.button {  
+  width: 100%;
+  height: 35px;
+
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input[type=search] {
+  margin: 0;
+  padding: 0 10px;
+  border:1px solid #DADADA;
+  background-color: #f8f8f8;
+  
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+div.button {
+  line-height: 35px;
+
+  margin: 0;
+  padding: 0 20px;
+
+  color: #fff;
+  background-color: #0177f9;
+  font-weight: bold;
+  
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  
+  white-space: nowrap;
+}
+
+
+
+.progress > span {
+position: relative;
+float: left;
+margin: 0 -1px;
+min-width: 30px;
+height: 18px;
+line-height: 16px;
+text-align: right;
+background: #cccccc;
+border: 1px solid;
+border-color: #bfbfbf #b3b3b3 #9e9e9e;
+border-radius: 10px;
+background-image: -webkit-linear-gradient(top, #f0f0f0, #dbdbdb 70%, #cccccc);
+background-image: -moz-linear-gradient(top, #f0f0f0, #dbdbdb 70%, #cccccc);
+background-image: -o-linear-gradient(top, #f0f0f0, #dbdbdb 70%, #cccccc);
+background-image: linear-gradient(to bottom, #f0f0f0, #dbdbdb 70%, #cccccc);
+-webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+.container { }
+.copyright { margin-top: 50px; font-size: 12px; text-transform: }
+.copyright a { text-decoration: none; padding: 5px;background: #c0392b; color: #FFFFFF; }
+.copyright a:hover { background: transparent; color: #c0392b; }
+
+.button {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  
+  padding-left: 40px;
+  position: relative;
+
+  text-decoration: none;
+  
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  
+  
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  
+-ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true)";zoom:1;
+filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true);
+
+  -moz-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+  -webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+  box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+  -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)";
+filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);
+}
+
+.button span {
+  position: absolute;
+  left: 0;
+  width: 30px;
+  padding-left: 5px;
+}
+
+.button:hover span, .button.active span {
+ 
+}
+
+.button:active {
+  margin-top: 2px;
+  margin-bottom: 13px;
+
+  -moz-box-shadow:0px 1px 0px rgba(255,255,255,0.5);
+-webkit-box-shadow:0px 1px 0px rgba(255,255,255,0.5);
+box-shadow:0px 1px 0px rgba(255,255,255,0.5);
+-ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccffffff,Positive=true)";
+filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccffffff,Positive=true);
+}
+
+.button.orange {
+  background: #FF7F00;
+}
+
+.button.purple {
+  background: #8e44ad;
+}
+
+.button.turquoise {
+  background: #1abc9c;
+}
+
+.button.red {
+  background: #e74c3c;
+}
+
+.settingfocusx {
+    border: 2px solid #AA88FF;
+    background-color: #9f9b9b;
+}
+    </style>
+    <script type="text/javascript">
+        function makeBlockUI() {
+            $.blockUI({ css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+            });
+			
+        }
+		
+    </script>
+	
+</head>
+<body background="images/bgdot.png">
+<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+
+<td>
+<table bgcolor="#ed1c24" border="0" cellpadding="0" cellspacing="0" width="100%" >
+
+<tr width="100%" height="1"><td colspan="2">
+</td>
+
+</tr>
+
+
+<tr valign="top" >
+	<td valign="top" colspan="2">
+<table border="0" width="100%" valign="top" background="images/bgdot.png">
+		<tbody>
+		<tr height="160" width="100%" ><td colspan="2">
+</td>
+
+</tr>
+		<tr height="90">
+
+			<td valign=top width="100%" align="center" height="1">
+			
+
+
+
+
+<table width="60%" cellspacing="0" cellpadding="0" style="border: 1px solid #c2c2c2; border-collapse:none;" class="tbl_shadow">
+<thead>
+<tr height="30" bgcolor="#eeedfb" >
+		<td width="10%" colspan="14" align="center" valign="middle"><b><font color="black" size=2>
+		<img src="images/logogmc1.png" height="84">
+		</td>
+		<td width="100%" colspan="14" align="center" valign="middle"><b><font color="black" size=3>
+		Server &#273;ang chuy&#7875;n sang <a href="http://invietdung.com/saleman/">http://invietdung.com/saleman/</a> <br>vui l&#242;ng &#273;&#7907;i trong gi&#226;y l&#225;t...
+		</td>
+		
+	</tr>
+</tbody>
+</table>
+		</td>
+			
+</tr>
+<tr background="images/bgdot.png">
+
+			<td valign=top width="100%" align="center" height="1">
+			
+
+
+
+
+
+		</td>
+			
+</tr>
+
+</table></td></tr></table>
+</td></tr></table>
+	<html>
