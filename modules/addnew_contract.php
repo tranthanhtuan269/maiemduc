@@ -4701,7 +4701,7 @@ for($i=0;$i<count($tbl_user_design);$i++)
 		if ($index_origin[0]["prg_status"] < 42) {
 
 
-			echo '<a href="?mode=viewdetail&id='.$_REQUEST['id'].'&do=xuly&status='.$index_origin[0]["prg_status"].'&ref='.$index_origin[0]["trn_ref"].'" class="button" ><span><img src="images/check.png" height="30"/></span>Xử lý đơn hàng</a>';
+			echo '<a href="?mode=viewdetail&id='.$_REQUEST['id'].'&do=xuly&status=41&ref='.$index_origin[0]["trn_ref"].'" class="button" ><span><img src="images/check.png" height="30"/></span>Xử lý đơn hàng</a>';
 
 
 			//echo '<a href="?mode=viewdetail&id='.$_REQUEST['id'].'&do=revert&status='.$index_origin[0]["prg_status"].'&ref='.$index_origin[0]["trn_ref"].'" class="button" ><span><img src="images/check.png" height="30"/></span>Back lại trạng thái</a>';
@@ -4746,7 +4746,7 @@ for($i=0;$i<count($tbl_user_design);$i++)
 		if ($index_origin[0]["prg_status"] > 12) {
 
 
-			echo '<a href="?mode=viewdetail&id='.$_REQUEST['id'].'&do=revert&status='.$index_origin[0]["prg_status"].'&ref='.$index_origin[0]["trn_ref"].'" class="button" ><span><img src="images/refresh.png" height="30"/></span>Back lại trạng thái</a>';
+			echo '<a href="?mode=viewdetail&id='.$_REQUEST['id'].'&do=revert&status=31&ref='.$index_origin[0]["trn_ref"].'" class="button" ><span><img src="images/refresh.png" height="30"/></span>Back lại trạng thái</a>';
 
 
 			//echo '<a href="?mode=viewdetail&id='.$_REQUEST['id'].'&do=revert&status='.$index_origin[0]["prg_status"].'&ref='.$index_origin[0]["trn_ref"].'" class="button" ><span><img src="images/check.png" height="30"/></span>Back lại trạng thái</a>';

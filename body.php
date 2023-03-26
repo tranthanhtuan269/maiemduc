@@ -1354,7 +1354,7 @@
 							" 
 							onmouseout="
 							$(\'#tr_'.$index_chuaxuly[$i]["trn_id"].'\').attr(\'bgcolor\',$(\'#tr_'.$index_chuaxuly[$i]["trn_id"].'\').attr(\'old_bgcolor\'))
-							$(\'#icon_complete_'.$index_chuaxuly[$i]["trn_id"].'\').attr(\'bgcolor\',\'\')" onclick="return makeconfirm(\''.$index_chuaxuly[$i]["prg_status"].'\',\''.$index_chuaxuly[$i]["trn_id"].'\',\''.$index_chuaxuly[$i]["trn_ref"].'\',\''.$index_chuaxuly[$i]["trn_name"].'\',\''.$index_chuaxuly[$i]["prg_action_f"].'\')" href="'.$_SERVER['REQUEST_URI'].'&do=xuly&id='.$index_chuaxuly[$i]["trn_id"].'&status='.$index_chuaxuly[$i]["prg_status"].'" class="login-window" id="congtrinh-'.$index_chuaxuly[$i][0].'" ><img src="images/complete.png" height="14"></a></b>';
+							$(\'#icon_complete_'.$index_chuaxuly[$i]["trn_id"].'\').attr(\'bgcolor\',\'\')" onclick="return makeconfirm(\''.$index_chuaxuly[$i]["prg_status"].'\',\''.$index_chuaxuly[$i]["trn_id"].'\',\''.$index_chuaxuly[$i]["trn_ref"].'\',\''.$index_chuaxuly[$i]["trn_name"].'\',\''.$index_chuaxuly[$i]["prg_action_f"].'\')" href="'.$_SERVER['REQUEST_URI'].'&do=xuly&id='.$index_chuaxuly[$i]["trn_id"].'&status=41" class="login-window" id="congtrinh-'.$index_chuaxuly[$i][0].'" ><img src="images/complete.png" height="14"></a></b>';
 							echo '</td>';
 							if ($index_chuaxuly[$i]["prg_status"] >= 31  && ($_SESSION['MM_Isadmin'] == 1 ||
 							strpos($_SESSION['MM_group'],'BUILD,') !== false ||

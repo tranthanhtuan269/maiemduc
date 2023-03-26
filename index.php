@@ -100,9 +100,11 @@ if ($_REQUEST['do'] == "xuly") {
 						";
 	if ($_REQUEST['status'] == "41") 
 		$sql = "UPDATE tbl_trans SET prg_status ='42', 
-											 prg_step4_dt2 = SYSDATE(), 
-											 prg_pending_by = null,
-											 prg_pending_from_dt = SYSDATE()
+						prg_step3_dt1 = SYSDATE(), 
+						prg_step3_dt2 = SYSDATE(), 
+						prg_step4_dt2 = SYSDATE(), 
+						prg_pending_by = null,
+						prg_pending_from_dt = SYSDATE()
 						WHERE trn_id = '".$_REQUEST['id']."'
 						";
 	if ($_REQUEST['status'] == "42") {
@@ -214,6 +216,9 @@ if ($_REQUEST['do'] == "xuly") {
 		if ($_REQUEST['status'] == "31") 
 			$sql = "UPDATE tbl_trans SET prg_status ='23', 
 												 prg_step3_dt1 = null, 
+												 prg_step3_dt2 = null, 
+												 prg_step4_dt2 = null, 
+												 prg_step4_dt2 = null, 
 												 prg_pending_by = prg_step3_by,
 												 prg_pending_from_dt = SYSDATE()
 							WHERE trn_id = '".$_REQUEST['id']."'
